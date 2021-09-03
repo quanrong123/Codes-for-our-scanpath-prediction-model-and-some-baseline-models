@@ -1,0 +1,15 @@
+function weights=makeweights3(vals,valScale,adjcMatrix,num_fea)
+num_color = num_fea(1);
+%num_texton = num_fea(2);
+%num_lbp = num_fea(3);
+valDistances_color = dist(vals(:,1:num_color)').^2;
+valDistances_color=normalize(valDistances_color);
+%valDistances_texton = dist(vals(:,num_color+1:num_color+num_texton)').^2;
+%valDistances_texton=normalize(valDistances_texton);
+%valDistances_lbp = dist(vals(:,num_color+num_texton+1:num_color+num_texton+num_lbp)').^2;
+%valDistances_lbp =normalize(valDistances_lbp );
+valDistances = 1.5*valDistances_color;%  + 0.8*valDistances_texton;% + 0.3*valDistances_lbp;
+%valScale = 8/(mean(mean(valDistances)));
+weights_all = exp(-valScale*valDistances);
+weights = weights_all .* adjcMatrix;
+%weights = weights_all;
